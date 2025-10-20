@@ -1,0 +1,19 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = https://github.com/HenriqueScandelari/JEE9-prime-wildfly.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "main"]
+	remote = origin
+	merge = refs/heads/main
+[branch "feat/jpa"]
+	remote = origin
+	merge = refs/heads/feat/jpa
+[branch "branch/JEE9-postgre-wildfly"]
+	remote = origin
+	merge = refs/heads/branch/JEE9-postgre-wildfly
+[user]
+	email = hscan78@gmail.com

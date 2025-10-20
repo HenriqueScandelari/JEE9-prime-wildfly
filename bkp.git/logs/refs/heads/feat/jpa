@@ -1,0 +1,2 @@
+0000000000000000000000000000000000000000 dcd61c28bd2bccc3d66777429d51e4c74591523f = <=> 1760914231 -0300	branch: Created from HEAD
+dcd61c28bd2bccc3d66777429d51e4c74591523f cfe261d648acccb6bb079df3aa4f5e0ad711cade = <=> 1760986820 -0300	commit: Databese, DS, persistence, Dockerfile, docker compose, deployAndStart script. Base application Jakarta EE9 Wildfly PostgreSql

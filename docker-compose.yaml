@@ -1,0 +1,30 @@
+version: '3.4'
+
+services:
+  postgres:
+    image: postgres:15.14-alpine3.21
+    networks:
+      - app_network
+    environment:
+      POSTGRES_DB: primewild
+      POSTGRES_USER: prime
+      POSTGRES_PASSWORD: wild
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432" # Expose PostgreSQL port
+
+  wildfly:
+    build: .
+    networks:
+      - app_network
+    depends_on:
+      - postgres # Ensure PostgreSQL starts before WildFly
+    ports:
+      - "8080:8080" # Expose WildFly's HTTP port
+      - "9990:9990" # Expose WildFly's management port (optional)
+networks:
+  app_network:
+
+volumes:
+  postgres_data:
