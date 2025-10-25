@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>My JSF Application</title>
+</h:head>
+<h:body>
+    <div class="card product">
+        <h:form id="form">
+<!--            <p:dataTable value="#{pacienteListBean.listarPacientes()}" var="paciente"-->
+<!--                        paginator="true" rows="10"-->
+<!--                        rowsPerPageTemplate="5, 10, 15"-->
+<!--                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"-->
+<!--                        gridIcon="pi pi-th-large" listIcon="pi pi-bars">-->
+            <p:dataTable value="#{pacienteListBean.listaPacientesPaginado}" var="paciente" lazy="true" paginator="true" rows="10">
+                <f:facet name="header">
+                    Pacientes
+                </f:facet>
+
+                <p:column headerText="Nome">
+                    <h:outputText value="#{paciente.nome}" />
+                </p:column>
+
+                <p:column headerText="CPF">
+                    <p:inputMask id="cpf" value="#{paciente.cpf}" mask="999.999.999-99" required="true"/>
+
+<!--                    <h:outputText value="#{paciente.cpf}" >-->
+<!--                        <f:convertNumber pattern="###.###.###-##" value="#{paciente.cpf}"/>-->
+<!--                    </h:outputText>-->
+                </p:column>
+                <p:column headerText="Data Nascimento">
+                    <p:calendar value="#{paciente.dataNascimento}" pattern="dd/MM/yyyy" disabled="true"/>
+                </p:column>
+                <p:column headerText="Sexo">
+                        <h:outputText value="#{paciente.sexo.valor}" />
+                </p:column>
+                <p:column headerText="Data Inclusão">
+                    <p:calendar value="#{paciente.dtInclusao}" pattern="dd/MM/yyyy HH:mm:ss" disabled="true" style="border: none"/>
+
+                </p:column>
+                <p:column headerText="Ativo">
+                        <h:selectBooleanCheckbox value="#{paciente.ativo}" disabled="true"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </div>
+</h:body>
+</html>
+

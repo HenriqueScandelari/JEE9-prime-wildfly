@@ -1,29 +1,44 @@
 package br.scandelari.app.model;
 
-import br.scandelari.app.model.enums.Sexo;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import br.scandelari.app.model.enums.SexoEnum;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "paciente")
 public class Paciente implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPaciente;
+    @Column(nullable = false)
     private String nome;
-
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
+    @Size(min = 11, max = 11)
+    @CPF(message = "CPF inválido.")
     private String cpf;
-    private LocalDate dataNasciemnto;
-    private Sexo sexo;
+    @Column(nullable = false)
+    private LocalDate dataNascimento;
+    @Enumerated(EnumType.STRING)
+    private SexoEnum sexo;
+    @Column(nullable = false)
     private LocalDateTime dtInclusao;
+    @Column(nullable = false)
     private Boolean ativo;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "paciente_medicamento",
+            joinColumns = @JoinColumn(name = "paciente_id"),
+            inverseJoinColumns = @JoinColumn(name = "medicamento_id")
+    )
+    private Set<Medicamento> medicamentos = new HashSet<>();
 
     public Paciente() {
     }
@@ -52,20 +67,20 @@ public class Paciente implements Serializable {
         this.cpf = cpf;
     }
 
-    public LocalDate getDataNasciemnto() {
-        return dataNasciemnto;
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
     }
 
-    public void setDataNasciemnto(LocalDate dataNasciemnto) {
-        this.dataNasciemnto = dataNasciemnto;
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
-    public Sexo getSexo() {
+    public SexoEnum getSexo() {
         return sexo;
     }
 
-    public void setSexo(Sexo sexo) {
-        this.sexo = sexo;
+    public void setSexo(SexoEnum sexoEnum) {
+        this.sexo = sexoEnum;
     }
 
     public LocalDateTime getDtInclusao() {
@@ -82,5 +97,26 @@ public class Paciente implements Serializable {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public Set<Medicamento> getMedicamentos() {
+        return medicamentos;
+    }
+
+    public void setMedicamentos(Set<Medicamento> medicamentos) {
+        this.medicamentos = medicamentos;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Paciente paciente = (Paciente) o;
+        return getCpf().equals(paciente.getCpf());
+    }
+
+    @Override
+    public int hashCode() {
+        return getCpf().hashCode();
     }
 }

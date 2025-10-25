@@ -28,6 +28,13 @@ public class PacienteResource {
         return pacienteService.findById(id);
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Paciente> getPacientes()
+    {
+        return pacienteService.findAll();
+    }
+
 //    @POST
 //    @Produces(MediaType.TEXT_PLAIN)
 //    @Consumes(MediaType.APPLICATION_JSON)
