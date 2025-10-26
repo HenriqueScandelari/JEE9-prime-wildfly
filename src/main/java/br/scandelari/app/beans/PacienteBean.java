@@ -1,6 +1,7 @@
 package br.scandelari.app.beans;
 
 import br.scandelari.app.model.Paciente;
+import br.scandelari.app.model.enums.SexoEnum;
 import br.scandelari.app.repository.PacienteLazyDataMode;
 import br.scandelari.app.services.PacienteService;
 import jakarta.enterprise.context.RequestScoped;
@@ -11,6 +12,8 @@ import jakarta.inject.Named;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequestScoped
@@ -22,6 +25,12 @@ public class PacienteBean {
 
     @Inject
     private PacienteLazyDataMode listaPacientesPaginado;
+
+    private Paciente novoPaciente;
+
+    public PacienteBean() {
+        novoPaciente = new Paciente();
+    }
 
     public List<Paciente> listarPacientes() {
         return pacienteService.findAll();
@@ -54,4 +63,38 @@ public class PacienteBean {
         }
     }
 
+    public String addPaciente() {
+        novoPaciente = new Paciente();
+        return "pacienteCadastro.xhtml?faces-redirect=true";
+    }
+
+    public String salvar() {
+//        novoPaciente.setDataNascimento(LocalDate.now());
+        pacienteService.create(novoPaciente);
+        novoPaciente = new Paciente();
+
+        return "pacienteList.xhtml?faces-redirect=true";
+    }
+
+    public void delPaciente(Long id) {
+        pacienteService.delete(id);
+    }
+
+    public SexoEnum[] getTipoSexo(){
+        return SexoEnum.values();
+    }
+
+//    private void pacienteNovo() {
+//        novoPaciente = new Paciente();
+//        novoPaciente.setAtivo(true);
+//        novoPaciente.setDtInclusao(LocalDateTime.now());
+//    }
+
+    public Paciente getNovoPaciente() {
+        return novoPaciente;
+    }
+
+    public void setNovoPaciente(Paciente novoPaciente) {
+        this.novoPaciente = novoPaciente;
+    }
 }

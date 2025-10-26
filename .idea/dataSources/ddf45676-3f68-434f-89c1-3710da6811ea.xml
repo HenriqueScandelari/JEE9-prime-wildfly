@@ -4265,8 +4265,8 @@ true posixrules
     </table>
     <table id="266" parent="262" name="paciente">
       <DetailsLevel>2</DetailsLevel>
-      <ObjectId>17838</ObjectId>
-      <StateNumber>1550</StateNumber>
+      <ObjectId>17878</ObjectId>
+      <StateNumber>1599</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>prime</OwnerName>
     </table>
@@ -4338,65 +4338,65 @@ true posixrules
       <DefaultExpression>nextval(&apos;paciente_idpaciente_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>1544</StateNumber>
+      <StateNumber>1594</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>17837</SequenceId>
+      <SequenceId>17877</SequenceId>
       <TypeId>20</TypeId>
     </column>
     <column id="277" parent="266" name="ativo">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>1544</StateNumber>
+      <StateNumber>1594</StateNumber>
       <StoredType>boolean|0s</StoredType>
       <TypeId>16</TypeId>
     </column>
     <column id="278" parent="266" name="cpf">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>1544</StateNumber>
-      <StoredType>varchar(11)|0s</StoredType>
+      <StateNumber>1594</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="279" parent="266" name="datanascimento">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>1544</StateNumber>
+      <StateNumber>1594</StateNumber>
       <StoredType>date|0s</StoredType>
       <TypeId>1082</TypeId>
     </column>
     <column id="280" parent="266" name="dtinclusao">
       <NotNull>1</NotNull>
       <Position>5</Position>
-      <StateNumber>1544</StateNumber>
+      <StateNumber>1594</StateNumber>
       <StoredType>timestamp(6)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
     <column id="281" parent="266" name="nome">
       <NotNull>1</NotNull>
       <Position>6</Position>
-      <StateNumber>1544</StateNumber>
+      <StateNumber>1594</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="282" parent="266" name="sexo">
       <Position>7</Position>
-      <StateNumber>1544</StateNumber>
+      <StateNumber>1594</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <index id="283" parent="266" name="paciente_pkey">
       <ColNames>idpaciente</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17844</ObjectId>
+      <ObjectId>17884</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>1544</StateNumber>
+      <StateNumber>1594</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
     <index id="284" parent="266" name="uk_fvlo8m5kqpr7knbyw4rjyer2s">
       <ColNames>cpf</ColNames>
-      <ObjectId>17858</ObjectId>
-      <StateNumber>1548</StateNumber>
+      <ObjectId>17898</ObjectId>
+      <StateNumber>1597</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
@@ -4405,15 +4405,15 @@ true posixrules
     </index>
     <key id="285" parent="266" name="paciente_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>17845</ObjectId>
+      <ObjectId>17885</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>1544</StateNumber>
-      <UnderlyingIndexId>17844</UnderlyingIndexId>
+      <StateNumber>1594</StateNumber>
+      <UnderlyingIndexId>17884</UnderlyingIndexId>
     </key>
     <key id="286" parent="266" name="uk_fvlo8m5kqpr7knbyw4rjyer2s">
-      <ObjectId>17859</ObjectId>
-      <StateNumber>1548</StateNumber>
-      <UnderlyingIndexId>17858</UnderlyingIndexId>
+      <ObjectId>17899</ObjectId>
+      <StateNumber>1597</StateNumber>
+      <UnderlyingIndexId>17898</UnderlyingIndexId>
     </key>
     <column id="287" parent="267" name="paciente_id">
       <NotNull>1</NotNull>

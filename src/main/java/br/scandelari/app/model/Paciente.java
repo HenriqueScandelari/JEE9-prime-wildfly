@@ -41,6 +41,8 @@ public class Paciente implements Serializable {
     private Set<Medicamento> medicamentos = new HashSet<>();
 
     public Paciente() {
+        this.ativo = true;
+        this.dtInclusao = LocalDateTime.now();
     }
 
     public Long getIdPaciente() {

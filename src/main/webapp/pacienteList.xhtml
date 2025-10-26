@@ -4,18 +4,23 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
-    <title>My JSF Application</title>
+    <title>Paciente</title>
 </h:head>
 <h:body>
     <div class="card product">
         <h:form id="form">
             <p:growl id="msgs" showDetail="true"/>
-<!--            <p:dataTable value="#{pacienteListBean.listarPacientes()}" var="paciente"-->
-<!--                        paginator="true" rows="10"-->
-<!--                        rowsPerPageTemplate="5, 10, 15"-->
-<!--                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"-->
-<!--                        gridIcon="pi pi-th-large" listIcon="pi pi-bars">-->
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="300">
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times"/>
+            </p:confirmDialog>
+            <p:panelGrid columns="1">
+                <p:commandButton value="Adicionar Paciente" icon="pi pi-plus"
+                                 action="#{pacienteBean.addPaciente}" />
+            </p:panelGrid>
+
             <p:dataTable value="#{pacienteBean.listaPacientesPaginado}" var="paciente"
+                         id="tbPaciente"
                          editable="true"
                          lazy="true" paginator="true" rows="10"
                          rowsPerPageTemplate="5,10,15">
@@ -61,7 +66,16 @@
                 </p:column>
 
                 <p:column headerText="Sexo">
-                        <h:outputText value="#{paciente.sexo.valor}" />
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{paciente.sexo.valor}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:selectOneMenu id="meuDropdown" value="#{paciente.sexo}">
+                                <f:selectItems value="#{pacienteBean.tipoSexo}" var="item" itemLabel="#{item.valor}" itemValue="#{item}"/>
+                            </p:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
                 </p:column>
 
                 <p:column headerText="Data Inclusão">
@@ -81,6 +95,11 @@
 
                 <p:column style="width:6rem">
                     <p:rowEditor editTitle="Alterar Valor" cancelTitle="Cancelar" saveTitle="Salvar"/>
+                </p:column>
+                <p:column>
+                    <p:commandButton icon="pi pi-trash" action="#{pacienteBean.delPaciente(paciente.idPaciente)}" update="tbPaciente form">
+                        <p:confirm header="Confirmaçao" message="Tem certeza que quer apagar o paciente #{paciente.nome}?" icon="pi pi-exclamation-triangle"/>
+                    </p:commandButton>
                 </p:column>
             </p:dataTable>
         </h:form>
