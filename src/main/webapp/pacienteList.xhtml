@@ -9,39 +9,78 @@
 <h:body>
     <div class="card product">
         <h:form id="form">
+            <p:growl id="msgs" showDetail="true"/>
 <!--            <p:dataTable value="#{pacienteListBean.listarPacientes()}" var="paciente"-->
 <!--                        paginator="true" rows="10"-->
 <!--                        rowsPerPageTemplate="5, 10, 15"-->
 <!--                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"-->
 <!--                        gridIcon="pi pi-th-large" listIcon="pi pi-bars">-->
-            <p:dataTable value="#{pacienteListBean.listaPacientesPaginado}" var="paciente" lazy="true" paginator="true" rows="10">
+            <p:dataTable value="#{pacienteBean.listaPacientesPaginado}" var="paciente"
+                         editable="true"
+                         lazy="true" paginator="true" rows="10"
+                         rowsPerPageTemplate="5,10,15">
+                <p:ajax event="rowEdit" listener="#{pacienteBean.onRowEdit}" update=":form:msgs"/>
+                <p:ajax event="rowEditCancel" listener="#{pacienteBean.onRowCancel}" update=":form:msgs"/>
                 <f:facet name="header">
                     Pacientes
                 </f:facet>
 
-                <p:column headerText="Nome">
-                    <h:outputText value="#{paciente.nome}" />
+                <p:column headerText="Nome" filterBy="#{paciente.nome}">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{paciente.nome}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{paciente.nome}" style="width:100%" label="Name"/>
+                        </f:facet>
+                    </p:cellEditor>
                 </p:column>
 
-                <p:column headerText="CPF">
-                    <p:inputMask id="cpf" value="#{paciente.cpf}" mask="999.999.999-99" required="true"/>
+                <p:column headerText="CPF" filterBy="#{paciente.cpf}" filterPlaceholder="Somente numeros">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{paciente.getFormattedCpf()}" >
+<!--                                <f:convertNumber pattern="###.###.###-##" value="#{paciente.cpf}"/>-->
+                            </h:outputText>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputMask id="cpf" value="#{paciente.cpf}" mask="999.999.999-99" required="true" style="width:100%" label="CPF"/>
+                        </f:facet>
+                    </p:cellEditor>
 
-<!--                    <h:outputText value="#{paciente.cpf}" >-->
-<!--                        <f:convertNumber pattern="###.###.###-##" value="#{paciente.cpf}"/>-->
-<!--                    </h:outputText>-->
                 </p:column>
                 <p:column headerText="Data Nascimento">
-                    <p:calendar value="#{paciente.dataNascimento}" pattern="dd/MM/yyyy" disabled="true"/>
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <p:calendar value="#{paciente.dataNascimento}" pattern="dd/MM/yyyy" disabled="true"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:calendar value="#{paciente.dataNascimento}" pattern="dd/MM/yyyy" required="true" style="width:100%" label="Data Nascimento"/>
+                        </f:facet>
+                    </p:cellEditor>
                 </p:column>
+
                 <p:column headerText="Sexo">
                         <h:outputText value="#{paciente.sexo.valor}" />
                 </p:column>
+
                 <p:column headerText="Data Inclusão">
                     <p:calendar value="#{paciente.dtInclusao}" pattern="dd/MM/yyyy HH:mm:ss" disabled="true" style="border: none"/>
-
                 </p:column>
+
                 <p:column headerText="Ativo">
-                        <h:selectBooleanCheckbox value="#{paciente.ativo}" disabled="true"/>
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:selectBooleanCheckbox value="#{paciente.ativo}" disabled="true"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <h:selectBooleanCheckbox value="#{paciente.ativo}" required="true" style="width:100%" label="Ativo"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column style="width:6rem">
+                    <p:rowEditor editTitle="Alterar Valor" cancelTitle="Cancelar" saveTitle="Salvar"/>
                 </p:column>
             </p:dataTable>
         </h:form>

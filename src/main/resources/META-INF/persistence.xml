@@ -9,7 +9,7 @@
         <class>br.scandelari.app.model.Pessoa</class>
 
         <properties>
-            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
             <property name="hibernate.hbm2ddl.import_files" value="import.sql, deafaultdata.sql" />
             <property name="hibernate.show_sql" value="true" />
 <!--            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>-->

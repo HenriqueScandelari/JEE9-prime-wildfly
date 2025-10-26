@@ -21,7 +21,7 @@ public class Paciente implements Serializable {
     @Column(nullable = false)
     private String nome;
     @Column(unique = true, nullable = false)
-    @Size(min = 11, max = 11)
+//    @Size(min = 11, max = 11)
     @CPF(message = "CPF inválido.")
     private String cpf;
     @Column(nullable = false)
@@ -63,6 +63,9 @@ public class Paciente implements Serializable {
         return cpf;
     }
 
+    public String getFormattedCpf() {
+        return cpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
+    }
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }

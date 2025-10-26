@@ -1,6 +1,0 @@
-<beans >
-    <interceptors>
-        <class>br.scandelari.app.interceptors.TimedInterceptor</class>
-
-    </interceptors>
-</beans>
