@@ -4,8 +4,14 @@ import br.scandelari.app.model.Paciente;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.PersistenceException;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.transaction.Transactional;
+import jakarta.validation.ConstraintViolationException;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.SQLWarning;
 import java.util.List;
 
 @ApplicationScoped
@@ -31,5 +37,13 @@ public class PacienteService {
     }
     public void delete(Long id) {
         em.remove(findById(id));
+    }
+    public void createOrUpdate(Paciente paciente) throws ConstraintViolationException, PersistenceException {
+        paciente.setCpf(paciente.getCpf().replaceAll("[^0-9]", ""));
+        if (null != paciente.getIdPaciente()) {
+            create(paciente);
+        } else {
+            update(paciente);
+        }
     }
 }

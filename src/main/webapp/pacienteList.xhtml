@@ -24,8 +24,8 @@
                          editable="true"
                          lazy="true" paginator="true" rows="10"
                          rowsPerPageTemplate="5,10,15">
-                <p:ajax event="rowEdit" listener="#{pacienteBean.onRowEdit}" update=":form:msgs"/>
-                <p:ajax event="rowEditCancel" listener="#{pacienteBean.onRowCancel}" update=":form:msgs"/>
+                <p:ajax event="rowEdit" listener="#{pacienteBean.onRowEdit}" update=":form:msgs tbPaciente"/>
+                <p:ajax event="rowEditCancel" listener="#{pacienteBean.onRowCancel}" update=":form:msgs tbPaciente"/>
                 <f:facet name="header">
                     Pacientes
                 </f:facet>

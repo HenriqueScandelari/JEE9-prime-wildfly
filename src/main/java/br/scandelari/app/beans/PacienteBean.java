@@ -6,12 +6,19 @@ import br.scandelari.app.repository.PacienteLazyDataMode;
 import br.scandelari.app.services.PacienteService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.persistence.PersistenceException;
+import jakarta.validation.ConstraintViolationException;
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -41,11 +48,14 @@ public class PacienteBean {
     }
 
     public void onRowEdit(RowEditEvent<Paciente> event) {
-        Paciente paciente = event.getObject();
-        paciente.setCpf(paciente.getCpf().replaceAll("[^0-9]", ""));
-        pacienteService.update(event.getObject());
-        FacesMessage msg = new FacesMessage("Paciente Atualizado", String.valueOf(event.getObject().getNome()));
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        novoPaciente = event.getObject();
+        salvar();
+        FacesContext context = FacesContext.getCurrentInstance();
+        String viewId = context.getViewRoot().getViewId();
+        ViewHandler handler = context.getApplication().getViewHandler();
+        UIViewRoot root = handler.createView(context, viewId);
+        root.setViewId(viewId);
+        context.setViewRoot(root);
     }
 
     public void onRowCancel(RowEditEvent<Paciente> event) {
@@ -69,11 +79,17 @@ public class PacienteBean {
     }
 
     public String salvar() {
-//        novoPaciente.setDataNascimento(LocalDate.now());
-        pacienteService.create(novoPaciente);
-        novoPaciente = new Paciente();
-
-        return "pacienteList.xhtml?faces-redirect=true";
+        try {
+            pacienteService.createOrUpdate(novoPaciente);
+            novoPaciente = new Paciente();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Paciente Criado.", null));
+            return "pacienteList.xhtml?faces-redirect=true";
+        } catch (ConstraintViolationException | PersistenceException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "CPF deve ser único.", null));
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), null));
+        }
+        return null;
     }
 
     public void delPaciente(Long id) {

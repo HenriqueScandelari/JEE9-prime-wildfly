@@ -3,11 +3,13 @@ package br.scandelari.app.model;
 import br.scandelari.app.model.enums.SexoEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,8 +43,9 @@ public class Paciente implements Serializable {
     private Set<Medicamento> medicamentos = new HashSet<>();
 
     public Paciente() {
+        ZoneId spZone = ZoneId.of("America/Sao_Paulo");
         this.ativo = true;
-        this.dtInclusao = LocalDateTime.now();
+        this.dtInclusao = LocalDateTime.now(spZone);
     }
 
     public Long getIdPaciente() {
