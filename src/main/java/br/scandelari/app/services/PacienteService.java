@@ -5,13 +5,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.PersistenceException;
-import jakarta.persistence.UniqueConstraint;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolationException;
 
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.sql.SQLWarning;
 import java.util.List;
 
 @ApplicationScoped
