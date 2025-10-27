@@ -1,6 +1,17 @@
-Projeto de Teste Tecnico Java EE
+**Projeto de Teste Tecnico Java EE**
+
+Ambiente obrigatório:
+- GIT
+- JRE 17+
+- Docker(linux/Mac) DockerDescktop(Win)
+- maven
 
 Para rodar o projeto executar o comando:
-./buildAndRun.sh
+- Linux/Mac
+- - ./buildAndRun.sh
 
-Acessar via browser: http://localhost:8080/teste
+- Windows
+- - buildAndRun.bat
+
+
+Acessar via browser: http://localhost:8080/prime-wild
