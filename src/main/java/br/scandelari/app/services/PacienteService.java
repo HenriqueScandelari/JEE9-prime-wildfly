@@ -37,9 +37,9 @@ public class PacienteService {
     public void createOrUpdate(Paciente paciente) throws ConstraintViolationException, PersistenceException {
         paciente.setCpf(paciente.getCpf().replaceAll("[^0-9]", ""));
         if (null != paciente.getIdPaciente()) {
-            create(paciente);
-        } else {
             update(paciente);
+        } else {
+            create(paciente);
         }
     }
 }

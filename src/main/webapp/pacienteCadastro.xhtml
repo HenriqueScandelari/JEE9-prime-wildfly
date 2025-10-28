@@ -10,6 +10,9 @@
     <h:form id="form">
         <p:growl id="msgs" showDetail="true"/>
         <p:panelGrid columns="2" style="width: 50%">
+            <f:facet name="header">
+                <h5>Pacientes</h5>
+            </f:facet>
             <h:outputLabel for="nome" value="Nome:"/>
             <p:inputText id="nome" value="#{pacienteBean.novoPaciente.nome}" required="true"/>
             <h:outputLabel for="cpf" value="CPF:"/>

@@ -82,7 +82,7 @@ public class PacienteBean {
         try {
             pacienteService.createOrUpdate(novoPaciente);
             novoPaciente = new Paciente();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Paciente Criado.", null));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Paciente Atualizado.", null));
             return "pacienteList.xhtml?faces-redirect=true";
         } catch (ConstraintViolationException | PersistenceException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "CPF deve ser único.", null));

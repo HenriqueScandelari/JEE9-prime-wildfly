@@ -3,12 +3,13 @@ package br.scandelari.app.model;
 import br.scandelari.app.model.enums.ControladoEnum;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Medicamento {
+public class Medicamento implements Serializable {
 
     @Id
     private Long idMedicamento;

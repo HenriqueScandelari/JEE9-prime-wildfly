@@ -1,15 +1,14 @@
 package br.scandelari.app.resource;
 
 import br.scandelari.app.model.Paciente;
-import br.scandelari.app.model.Person;
-import br.scandelari.app.model.caches.PersonCache;
-import br.scandelari.app.model.events.AddPersonEvent;
 import br.scandelari.app.services.PacienteService;
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.enterprise.event.Event;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import org.hibernate.Hibernate;
+import org.hibernate.Transaction;
 
 import java.util.List;
 
@@ -23,9 +22,11 @@ public class PacienteResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
+    @Transactional
     public Paciente getPaciente(@PathParam("id") Long id) {
-
-        return pacienteService.findById(id);
+        Paciente paciente = pacienteService.findById(id);
+        Hibernate.initialize(paciente.getMedicamentos());
+        return  paciente;
     }
 
     @GET
