@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Paciente</title>
+</h:head>
+<h:body>
+    <h:form id="form">
+        <p:growl id="msgs" showDetail="true"/>
+        <p:panelGrid columns="2" style="width: 50%">
+            <f:facet name="header">
+                <h5>Medicamento</h5>
+            </f:facet>
+            <h:outputLabel for="nome" value="Nome:"/>
+            <p:inputText id="nome" value="#{medicamentoBean.novoMedicamento.nome}" required="true"/>
+            <h:outputLabel for="controlado" value="Controlado:"/>
+            <p:selectOneMenu id="controlado" value="#{medicamentoBean.novoMedicamento.controlado}">
+                <f:selectItems value="#{medicamentoBean.tipoControlado}" var="item" itemLabel="#{item}" itemValue="#{item}"/>
+            </p:selectOneMenu>
+            <h:outputLabel for="posologia" value="Posologia:"/>
+            <p:inputTextarea value="#{medicamentoBean.novoMedicamento.posologia}" rows="5" cols="30" autoResize="true"
+                             maxlength="220" counter="display" counterTemplate="{0} characters remaining."
+                             label="posologia" id="posologia"/>
+            <h:outputText id="vazio" />
+            <h:outputText id="display" />
+        </p:panelGrid>
+        <p:panelGrid columns="2" style="width: 50%; align-content: center">
+            <p:commandButton value="Salvar" icon="pi pi-plus" action="#{medicamentoBean.salvar}" update=":form:msgs"/>
+            <p:commandButton value="Cancelar" icon="pi pi-del" action="medicamentoList.xhtml?faces-redirect=true" immediate="true" />
+        </p:panelGrid>
+    </h:form>
+</h:body>
+
+
+</html>

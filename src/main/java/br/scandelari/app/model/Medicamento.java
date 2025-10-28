@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,6 +13,7 @@ import java.util.Set;
 public class Medicamento implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idMedicamento;
     @Column(nullable = false)
     private String nome;
@@ -23,6 +25,11 @@ public class Medicamento implements Serializable {
     private LocalDateTime dataCadastro;
     @ManyToMany(mappedBy = "medicamentos") // "projects" refers to the field in Employee
     private Set<Paciente> pacientes = new HashSet<>();
+
+    public Medicamento() {
+        ZoneId spZone = ZoneId.of("America/Sao_Paulo");
+        this.dataCadastro = LocalDateTime.now(spZone);
+    }
 
     public Long getIdMedicamento() {
         return idMedicamento;

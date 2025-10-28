@@ -6,8 +6,6 @@
     <persistence-unit name="PrimeWild">
         <jta-data-source>jdbc/PrimeWildDS</jta-data-source>
 
-        <class>br.scandelari.app.model.Pessoa</class>
-
         <properties>
             <property name="hibernate.hbm2ddl.auto" value="update" />
             <property name="hibernate.hbm2ddl.import_files" value="import.sql, defaultdata.sql" />

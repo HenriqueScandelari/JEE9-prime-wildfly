@@ -15,8 +15,8 @@
                 <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times"/>
             </p:confirmDialog>
             <p:panelGrid columns="1">
-                <p:commandButton value="Adicionar Paciente" icon="pi pi-plus"
-                                 action="#{pacienteBean.addPaciente}" />
+                <p:commandButton value="Adicionar Medicamento" icon="pi pi-plus"
+                                 action="#{medicamentoBean.addMedicamento}" />
             </p:panelGrid>
 
             <p:dataTable value="#{medicamentoBean.listaMedicamentosPaginado}" var="medicamento"
@@ -51,9 +51,8 @@
                             <h:outputText value="#{medicamento.controlado}" />
                         </f:facet>
                         <f:facet name="input">
-                            <p:importEnum type="br.scandelari.app.model.enums.ControladoEnum" var="controladoEnum"/>
-                            <p:selectOneMenu id="meuDropdown" value="#{medicamento.controlado}">
-                                <f:selectItems value="#{controladoEnum.values()}" var="item" itemLabel="#{item.label}" itemValue="#{item}"/>
+                            <p:selectOneMenu id="controlado" value="#{medicamentoBean.novoMedicamento.controlado}">
+                                <f:selectItems value="#{medicamentoBean.tipoControlado}" var="item" itemLabel="#{item}" itemValue="#{item}"/>
                             </p:selectOneMenu>
                         </f:facet>
                     </p:cellEditor>
@@ -68,6 +67,8 @@
                             <p:inputTextarea value="#{medicamento.posologia}" rows="5" cols="30" autoResize="true"
                                              maxlength="220" counter="display" counterTemplate="{0} characters remaining."
                             label="posologia"/>
+<!--                            <h:outputText id="vazio" />-->
+                            <h:outputText id="display" />
                         </f:facet>
                     </p:cellEditor>
                 </p:column>
