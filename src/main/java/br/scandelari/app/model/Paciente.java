@@ -127,4 +127,18 @@ public class Paciente implements Serializable {
     public int hashCode() {
         return getCpf().hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "Paciente{" +
+                "idPaciente=" + idPaciente +
+                ", nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", dataNascimento=" + dataNascimento +
+                ", sexo=" + sexo +
+                ", dtInclusao=" + dtInclusao +
+                ", ativo=" + ativo +
+                ", medicamentos=" + medicamentos +
+                '}';
+    }
 }

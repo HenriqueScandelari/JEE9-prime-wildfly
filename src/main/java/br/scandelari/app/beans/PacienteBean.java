@@ -1,10 +1,12 @@
 package br.scandelari.app.beans;
 
+import br.scandelari.app.model.Medicamento;
 import br.scandelari.app.model.Paciente;
 import br.scandelari.app.model.enums.SexoEnum;
 import br.scandelari.app.repository.PacienteLazyDataMode;
 import br.scandelari.app.services.PacienteService;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.application.ViewHandler;
 import jakarta.faces.component.UIViewRoot;
@@ -12,20 +14,22 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.persistence.PersistenceException;
+import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolationException;
 import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@RequestScoped
+@SessionScoped
 @Named
-public class PacienteBean {
+public class PacienteBean implements Serializable {
 
     @Inject
     private PacienteService pacienteService;
@@ -35,8 +39,13 @@ public class PacienteBean {
 
     private Paciente novoPaciente;
 
+    private Paciente pacienteSelecionado;
+
+    private Boolean editavel;
+
     public PacienteBean() {
-        novoPaciente = new Paciente();
+//        novoPaciente = new Paciente();
+        editavel = true;
     }
 
     public List<Paciente> listarPacientes() {
@@ -45,6 +54,22 @@ public class PacienteBean {
 
     public PacienteLazyDataMode getListaPacientesPaginado() {
         return listaPacientesPaginado;
+    }
+
+    public Paciente getPacienteSelecionado() {
+        return pacienteSelecionado;
+    }
+
+    public void setPacienteSelecionado(Paciente pacienteSelecionado) {
+        this.pacienteSelecionado = pacienteSelecionado;
+    }
+
+    public Boolean getEditavel() {
+        return editavel;
+    }
+
+    public void setEditavel(Boolean editavel) {
+        this.editavel = editavel;
     }
 
     public void onRowEdit(RowEditEvent<Paciente> event) {
@@ -105,6 +130,35 @@ public class PacienteBean {
 //        novoPaciente.setAtivo(true);
 //        novoPaciente.setDtInclusao(LocalDateTime.now());
 //    }
+
+    @Transactional
+    public String atribuirMedicamentos(Paciente paciente) {
+        novoPaciente = pacienteService.findById(paciente.getIdPaciente());
+        if (novoPaciente.getAtivo()) {
+            System.out.println(novoPaciente);
+            return "pacienteCadastro.xhtml?faces-redirect=true";
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro!", "Paciente " + novoPaciente.getNome() + " está inativo."));
+            return null;
+        }
+    }
+    public void atribuirMedicamento(Medicamento medicamento) {
+
+        if (novoPaciente.getMedicamentos().add(medicamento)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Medicamento preescrito com sucesso!", null));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro!", "Medicamento já preescrito."));
+        }
+
+    }
+
+    public void removerMedicamento(Medicamento medicamento) {
+        if (novoPaciente.getMedicamentos().remove(medicamento)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso",  "Medicamento removido com sucesso!"));
+        }
+//        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Medicamento preescrito com sucesso!.", null));
+//        return "pacienteCadastro.xhtml?faces-redirect=true";
+    }
 
     public Paciente getNovoPaciente() {
         return novoPaciente;

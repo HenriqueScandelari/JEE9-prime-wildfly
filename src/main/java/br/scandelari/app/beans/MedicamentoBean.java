@@ -1,10 +1,11 @@
 package br.scandelari.app.beans;
 
 import br.scandelari.app.model.Medicamento;
+import br.scandelari.app.model.Paciente;
 import br.scandelari.app.model.enums.ControladoEnum;
-import br.scandelari.app.model.enums.SexoEnum;
 import br.scandelari.app.repository.MedicamentoLazyDataMode;
 import br.scandelari.app.services.MedicamentoService;
+import jakarta.el.ValueExpression;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -12,6 +13,8 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.model.FilterMeta;
+import org.primefaces.model.MatchMode;
 
 import java.util.List;
 
@@ -36,6 +39,13 @@ public class MedicamentoBean {
     }
 
     public MedicamentoLazyDataMode getListaMedicamentosPaginado() {
+        return listaMedicamentosPaginado;
+    }
+
+    public MedicamentoLazyDataMode getListaMedicamentosPaginadoNotIn(Paciente paciente) {
+        List<Long> notIn = paciente.getMedicamentos().stream()
+                .map(m -> m.getIdMedicamento()).toList();
+        listaMedicamentosPaginado.setNotIn(notIn);
         return listaMedicamentosPaginado;
     }
 
@@ -86,4 +96,5 @@ public class MedicamentoBean {
     public void setNovoMedicamento(Medicamento novoMedicamento) {
         this.novoMedicamento = novoMedicamento;
     }
+
 }

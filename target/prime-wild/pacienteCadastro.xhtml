@@ -28,9 +28,73 @@
                                      required="true" style="width:100%; horiz-align: left" label="Ativo" />
         </p:panelGrid>
         <p:panelGrid columns="2" style="width: 50%; align-content: center">
-            <p:commandButton value="Salvar" icon="pi pi-plus" action="#{pacienteBean.salvar}" update=":form:msgs"/>
-            <p:commandButton value="Cancelar" icon="pi pi-del" action="pacienteList.xhtml?faces-redirect=true" immediate="true" />
+            <p:commandButton value="Salvar" icon="pi pi-save" action="#{pacienteBean.salvar}" update=":form:msgs"/>
+            <p:commandButton value="Cancelar" icon="pi pi-ban" action="pacienteList.xhtml?faces-redirect=true" immediate="true" />
         </p:panelGrid>
+        <p:panel id="pMedicamentoPaciente">
+            <p:dataTable value="#{pacienteBean.novoPaciente.medicamentos}" var="medicamentoPaciete"
+                         id="tbMedicamentoPaciente"
+                         lazy="true" paginator="true" rows="5"
+                         rowsPerPageTemplate="5,10,15">
+                <p:ajax event="rowEdit" listener="#{pacienteBean.onRowEdit}" update=":form:msgs tbPaciente"/>
+                <f:facet name="header">
+                    Medicamentos Preescritos
+                </f:facet>
+
+                <p:column headerText="ID">
+                    <h:outputText value="#{medicamentoPaciete.idMedicamento}" />
+                </p:column>
+
+                <p:column headerText="Nome" filterBy="#{medicamentoPaciete.nome}">
+                    <h:outputText value="#{medicamentoPaciete.nome}" />
+                </p:column>
+
+                <p:column headerText="Controlado">
+                    <h:outputText value="#{medicamentoPaciete.controlado}" />
+                </p:column>
+
+                <p:column headerText="Posologia">
+                    <h:outputText value="#{medicamentoPaciete.posologia}" />
+                </p:column>
+
+                <p:column headerText="Remover Medicamento">
+                    <p:commandButton icon="pi pi-minus" action="#{pacienteBean.removerMedicamento(medicamentoPaciete)}" update=":form:msgs :form:pMedicamentoPaciente :form:pMedicamento" />
+                </p:column>
+
+            </p:dataTable>f
+        </p:panel>
+
+        <p:panel id="pMedicamento">
+            <p:dataTable value="#{medicamentoBean.getListaMedicamentosPaginadoNotIn(pacienteBean.novoPaciente)}" var="medicamento"
+                         id="tbMedicamento"
+                         lazy="true" paginator="true" rows="5"
+                         rowsPerPageTemplate="5,10,15">
+                <f:facet name="header">
+                    Medicamentos Não Preescritos
+                </f:facet>
+
+                <p:column headerText="ID">
+                    <h:outputText value="#{medicamento.idMedicamento}" />
+                </p:column>
+
+                <p:column headerText="Nome" filterBy="#{medicamento.nome}">
+                    <h:outputText value="#{medicamento.nome}" />
+                </p:column>
+
+                <p:column headerText="Controlado">
+                    <h:outputText value="#{medicamento.controlado}" />
+                </p:column>
+
+                <p:column headerText="Posologia">
+                    <h:outputText value="#{medicamento.posologia}" />
+                </p:column>
+
+                <p:column headerText="Adicionar Medicamento">
+                    <p:commandButton icon="pi pi-plus" action="#{pacienteBean.atribuirMedicamento(medicamento)}" update=":form:msgs :form:pMedicamentoPaciente :form:pMedicamento" />
+                </p:column>
+
+            </p:dataTable>
+        </p:panel>
     </h:form>
 </h:body>
 

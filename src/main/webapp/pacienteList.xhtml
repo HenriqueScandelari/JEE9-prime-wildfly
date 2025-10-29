@@ -14,9 +14,11 @@
                 <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
                 <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times"/>
             </p:confirmDialog>
-            <p:panelGrid columns="1">
+            <p:panelGrid columns="2">
                 <p:commandButton value="Adicionar Paciente" icon="pi pi-plus"
                                  action="#{pacienteBean.addPaciente}" />
+                <p:commandButton value="Gerenciar Medicamentos" icon="pi pi-list"
+                                 action="medicamentoList.xhtml?faces-redirect=true" />
             </p:panelGrid>
 
             <p:dataTable value="#{pacienteBean.listaPacientesPaginado}" var="paciente"
@@ -33,7 +35,7 @@
                 <p:column headerText="Nome" filterBy="#{paciente.nome}">
                     <p:cellEditor>
                         <f:facet name="output">
-                            <h:outputText value="#{paciente.nome}" />
+                            <p:outputLabel value="#{paciente.nome}" icon="pi pi-filter"/>
                         </f:facet>
                         <f:facet name="input">
                             <p:inputText value="#{paciente.nome}" style="width:100%" label="Name"/>
@@ -93,12 +95,17 @@
                     </p:cellEditor>
                 </p:column>
 
-                <p:column style="width:6rem">
+                <p:column style="width:6rem" headerText="Editar">
                     <p:rowEditor editTitle="Alterar Valor" cancelTitle="Cancelar" saveTitle="Salvar"/>
                 </p:column>
-                <p:column>
+                <p:column headerText="Apagar" style="width:6rem">
                     <p:commandButton icon="pi pi-trash" action="#{pacienteBean.delPaciente(paciente.idPaciente)}" update="tbPaciente form">
                         <p:confirm header="Confirmaçao" message="Tem certeza que quer apagar o paciente #{paciente.nome}?" icon="pi pi-exclamation-triangle"/>
+                    </p:commandButton>
+                </p:column>
+                <p:column style="width:6rem; text-align: center" headerText="Vincular Remédios">
+                    <p:commandButton update="form tbPaciente" action="#{pacienteBean.atribuirMedicamentos(paciente)}"
+                                     icon="pi pi-list" title="Atribuir Remédios">
                     </p:commandButton>
                 </p:column>
             </p:dataTable>

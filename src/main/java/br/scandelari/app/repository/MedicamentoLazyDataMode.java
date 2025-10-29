@@ -5,10 +5,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
 import jakarta.transaction.Transactional;
 import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
@@ -24,6 +21,15 @@ public class MedicamentoLazyDataMode extends LazyDataModel<Medicamento> {
     @PersistenceContext
     private EntityManager em;
 
+    private List<Long> notIn;
+
+    public List<Long> getNotIn() {
+        return notIn;
+    }
+
+    public void setNotIn(List<Long> notIn) {
+        this.notIn = notIn;
+    }
 
     @Override
     public int count(Map<String, FilterMeta> filterBy) {
@@ -47,6 +53,12 @@ public class MedicamentoLazyDataMode extends LazyDataModel<Medicamento> {
                 if (filterValue != null && !filterValue.toString().isEmpty()) {
                     predicates.add(cb.like(root.get(filterProperty), "%" + filterValue + "%"));
                 }
+            }
+            if (notIn != null && !notIn.isEmpty()) {
+                Expression<String> nameExpression = root.get("idMedicamento");
+                Predicate inPredicate = nameExpression.in(notIn);
+                Predicate notInPredicate = cb.not(inPredicate);
+                predicates.add(notInPredicate);
             }
             if (!predicates.isEmpty()) {
                 cq.where(predicates.toArray(new Predicate[predicates.size()]));
