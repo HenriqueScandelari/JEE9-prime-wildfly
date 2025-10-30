@@ -6,6 +6,8 @@ Ambiente obrigatório:
 - Docker(linux/Mac) DockerDescktop(Win)
 - maven
 
+Clonar o projeto com git.
+
 Para rodar o projeto executar o comando:
 - Linux/Mac
 - - ./buildAndRun.sh
