@@ -7,8 +7,9 @@ Ambiente obrigatório:
 - maven
 
 Clonar o projeto com git.
+- git clone git@github.com:HenriqueScandelari/JEE9-prime-wildfly.git
 
-Para rodar o projeto executar o comando:
+Para rodar o projeto executar o comando na pasta raiz do projeto clonado:
 - Linux/Mac
 - - ./buildAndRun.sh
 
