@@ -3,15 +3,7 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
     <root id="1">
       <DateStyle>mdy</DateStyle>
-      <Grants>1||-9223372036854775808|c|G
-1||10|c|G
-1||10|C|G
-1||10|T|G
-4||-9223372036854775808|c|G
-4||10|c|G
-4||10|C|G
-4||10|T|G</Grants>
-      <IntrospectionStateNumber>900</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1178</IntrospectionStateNumber>
       <ServerVersion>15.14</ServerVersion>
       <StartupTime>1761745097</StartupTime>
       <TimeZones>true ACDT
@@ -815,7 +807,7 @@ true posixrules
 13252||10|C|G
 13252||-9223372036854775808|U|G
 13252||10|U|G</Grants>
-      <IntrospectionStateNumber>900</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1178</IntrospectionStateNumber>
       <ObjectId>16384</ObjectId>
       <OwnerName>prime</OwnerName>
     </database>
@@ -4229,30 +4221,30 @@ true posixrules
       <AutoIntrospectionLevel>3</AutoIntrospectionLevel>
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <LastIntrospectionL1Xid>900</LastIntrospectionL1Xid>
-      <LastIntrospectionL2Xid>900</LastIntrospectionL2Xid>
-      <LastIntrospectionL3Xid>900</LastIntrospectionL3Xid>
+      <LastIntrospectionL1Xid>1178</LastIntrospectionL1Xid>
+      <LastIntrospectionL2Xid>1178</LastIntrospectionL2Xid>
+      <LastIntrospectionL3Xid>1178</LastIntrospectionL3Xid>
       <LastIntrospectionLevel>3</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2025-10-29.16:36:54</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-10-29.22:34:54</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>518</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
     </schema>
     <sequence id="263" parent="262" name="medicamento_idmedicamento_seq">
       <DetailsLevel>2</DetailsLevel>
-      <ObjectId>16583</ObjectId>
+      <ObjectId>17146</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>881</StateNumber>
+      <StateNumber>1170</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <OwnerName>prime</OwnerName>
     </sequence>
-    <sequence id="264" parent="262" name="paciente_idpaciente_seq">
+    <sequence id="264" parent="262" name="paciente_seq">
       <DetailsLevel>2</DetailsLevel>
-      <ObjectId>16592</ObjectId>
-      <SequenceIdentity>1</SequenceIdentity>
+      <ObjectId>17145</ObjectId>
+      <SequenceIdentity>1+50</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>882</StateNumber>
+      <StateNumber>1169</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <OwnerName>prime</OwnerName>
     </sequence>
@@ -4267,22 +4259,22 @@ true posixrules
     </sequence>
     <table id="266" parent="262" name="medicamento">
       <DetailsLevel>2</DetailsLevel>
-      <ObjectId>16584</ObjectId>
-      <StateNumber>886</StateNumber>
+      <ObjectId>17147</ObjectId>
+      <StateNumber>1174</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>prime</OwnerName>
     </table>
     <table id="267" parent="262" name="paciente">
       <DetailsLevel>2</DetailsLevel>
-      <ObjectId>16593</ObjectId>
-      <StateNumber>887</StateNumber>
+      <ObjectId>17155</ObjectId>
+      <StateNumber>1175</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>prime</OwnerName>
     </table>
     <table id="268" parent="262" name="paciente_medicamento">
       <DetailsLevel>2</DetailsLevel>
-      <ObjectId>16601</ObjectId>
-      <StateNumber>886</StateNumber>
+      <ObjectId>17162</ObjectId>
+      <StateNumber>1174</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>prime</OwnerName>
     </table>
@@ -4297,117 +4289,115 @@ true posixrules
       <DefaultExpression>nextval(&apos;medicamento_idmedicamento_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>881</StateNumber>
+      <StateNumber>1170</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>16583</SequenceId>
+      <SequenceId>17146</SequenceId>
       <TypeId>20</TypeId>
     </column>
     <column id="271" parent="266" name="controlado">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>881</StateNumber>
+      <StateNumber>1170</StateNumber>
       <StoredType>smallint|0s</StoredType>
       <TypeId>21</TypeId>
     </column>
     <column id="272" parent="266" name="datacadastro">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>881</StateNumber>
+      <StateNumber>1170</StateNumber>
       <StoredType>timestamp(6)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
     <column id="273" parent="266" name="nome">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>881</StateNumber>
+      <StateNumber>1170</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="274" parent="266" name="posologia">
       <Position>5</Position>
-      <StateNumber>881</StateNumber>
+      <StateNumber>1170</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <index id="275" parent="266" name="medicamento_pkey">
       <ColNames>idmedicamento</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16590</ObjectId>
+      <ObjectId>17153</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>881</StateNumber>
+      <StateNumber>1170</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
     <key id="276" parent="266" name="medicamento_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16591</ObjectId>
+      <ObjectId>17154</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>881</StateNumber>
-      <UnderlyingIndexId>16590</UnderlyingIndexId>
+      <StateNumber>1170</StateNumber>
+      <UnderlyingIndexId>17153</UnderlyingIndexId>
     </key>
     <column id="277" parent="267" name="idpaciente">
-      <DefaultExpression>nextval(&apos;paciente_idpaciente_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>882</StateNumber>
+      <StateNumber>1171</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>16592</SequenceId>
       <TypeId>20</TypeId>
     </column>
     <column id="278" parent="267" name="ativo">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>882</StateNumber>
+      <StateNumber>1171</StateNumber>
       <StoredType>boolean|0s</StoredType>
       <TypeId>16</TypeId>
     </column>
     <column id="279" parent="267" name="cpf">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>882</StateNumber>
+      <StateNumber>1171</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="280" parent="267" name="datanascimento">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>882</StateNumber>
+      <StateNumber>1171</StateNumber>
       <StoredType>date|0s</StoredType>
       <TypeId>1082</TypeId>
     </column>
     <column id="281" parent="267" name="dtinclusao">
       <NotNull>1</NotNull>
       <Position>5</Position>
-      <StateNumber>882</StateNumber>
+      <StateNumber>1171</StateNumber>
       <StoredType>timestamp(6)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
     <column id="282" parent="267" name="nome">
       <NotNull>1</NotNull>
       <Position>6</Position>
-      <StateNumber>882</StateNumber>
+      <StateNumber>1171</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="283" parent="267" name="sexo">
       <Position>7</Position>
-      <StateNumber>882</StateNumber>
+      <StateNumber>1171</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <index id="284" parent="267" name="paciente_pkey">
       <ColNames>idpaciente</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16599</ObjectId>
+      <ObjectId>17160</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>882</StateNumber>
+      <StateNumber>1171</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
     <index id="285" parent="267" name="uk_fvlo8m5kqpr7knbyw4rjyer2s">
       <ColNames>cpf</ColNames>
-      <ObjectId>16606</ObjectId>
-      <StateNumber>885</StateNumber>
+      <ObjectId>17167</ObjectId>
+      <StateNumber>1173</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
@@ -4416,60 +4406,60 @@ true posixrules
     </index>
     <key id="286" parent="267" name="paciente_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16600</ObjectId>
+      <ObjectId>17161</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>882</StateNumber>
-      <UnderlyingIndexId>16599</UnderlyingIndexId>
+      <StateNumber>1171</StateNumber>
+      <UnderlyingIndexId>17160</UnderlyingIndexId>
     </key>
     <key id="287" parent="267" name="uk_fvlo8m5kqpr7knbyw4rjyer2s">
-      <ObjectId>16607</ObjectId>
-      <StateNumber>885</StateNumber>
-      <UnderlyingIndexId>16606</UnderlyingIndexId>
+      <ObjectId>17168</ObjectId>
+      <StateNumber>1173</StateNumber>
+      <UnderlyingIndexId>17167</UnderlyingIndexId>
     </key>
     <column id="288" parent="268" name="paciente_id">
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>883</StateNumber>
+      <StateNumber>1172</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
     <column id="289" parent="268" name="medicamento_id">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>883</StateNumber>
+      <StateNumber>1172</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
     <foreign-key id="290" parent="268" name="fkqonlqmo4b64ecoonb23jp779v">
       <ColNames>paciente_id</ColNames>
-      <ObjectId>16613</ObjectId>
-      <StateNumber>887</StateNumber>
+      <ObjectId>17174</ObjectId>
+      <StateNumber>1175</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>16593</RefTableId>
+      <RefTableId>17155</RefTableId>
     </foreign-key>
     <foreign-key id="291" parent="268" name="fk1xlv8ftg5o584khv8p279lyy">
       <ColNames>medicamento_id</ColNames>
-      <ObjectId>16608</ObjectId>
-      <StateNumber>886</StateNumber>
+      <ObjectId>17169</ObjectId>
+      <StateNumber>1174</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>16584</RefTableId>
+      <RefTableId>17147</RefTableId>
     </foreign-key>
     <index id="292" parent="268" name="paciente_medicamento_pkey">
       <ColNames>paciente_id
 medicamento_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16604</ObjectId>
+      <ObjectId>17165</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>883</StateNumber>
+      <StateNumber>1172</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
     <key id="293" parent="268" name="paciente_medicamento_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16605</ObjectId>
+      <ObjectId>17166</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>883</StateNumber>
-      <UnderlyingIndexId>16604</UnderlyingIndexId>
+      <StateNumber>1172</StateNumber>
+      <UnderlyingIndexId>17165</UnderlyingIndexId>
     </key>
     <column id="294" parent="269" name="id">
       <DefaultExpression>nextval(&apos;pessoa_id_seq&apos;::regclass)</DefaultExpression>

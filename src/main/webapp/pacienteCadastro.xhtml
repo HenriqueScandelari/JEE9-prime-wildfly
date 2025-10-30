@@ -32,33 +32,32 @@
             <p:commandButton value="Cancelar" icon="pi pi-ban" action="pacienteList.xhtml?faces-redirect=true" immediate="true" />
         </p:panelGrid>
         <p:panel id="pMedicamentoPaciente">
-            <p:dataTable value="#{pacienteBean.novoPaciente.medicamentos}" var="medicamentoPaciete"
+            <p:dataTable value="#{pacienteBean.novoPaciente.medicamentos}" var="medicamentoPaciente"
                          id="tbMedicamentoPaciente"
                          lazy="true" paginator="true" rows="5"
                          rowsPerPageTemplate="5,10,15">
-                <p:ajax event="rowEdit" listener="#{pacienteBean.onRowEdit}" update=":form:msgs tbPaciente"/>
                 <f:facet name="header">
                     Medicamentos Preescritos
                 </f:facet>
 
                 <p:column headerText="ID">
-                    <h:outputText value="#{medicamentoPaciete.idMedicamento}" />
+                    <h:outputText value="#{medicamentoPaciente.idMedicamento}" />
                 </p:column>
 
-                <p:column headerText="Nome" filterBy="#{medicamentoPaciete.nome}">
-                    <h:outputText value="#{medicamentoPaciete.nome}" />
+                <p:column headerText="Nome">
+                    <h:outputText value="#{medicamentoPaciente.nome}" />
                 </p:column>
 
                 <p:column headerText="Controlado">
-                    <h:outputText value="#{medicamentoPaciete.controlado}" />
+                    <h:outputText value="#{medicamentoPaciente.controlado}" />
                 </p:column>
 
                 <p:column headerText="Posologia">
-                    <h:outputText value="#{medicamentoPaciete.posologia}" />
+                    <h:outputText value="#{medicamentoPaciente.posologia}" />
                 </p:column>
 
                 <p:column headerText="Remover Medicamento">
-                    <p:commandButton icon="pi pi-minus" action="#{pacienteBean.removerMedicamento(medicamentoPaciete)}" update=":form:msgs :form:pMedicamentoPaciente :form:pMedicamento" />
+                    <p:commandButton icon="pi pi-minus" action="#{pacienteBean.removerMedicamento(medicamentoPaciente)}" update=":form:msgs :form:pMedicamentoPaciente :form:pMedicamento" />
                 </p:column>
 
             </p:dataTable>f
@@ -77,7 +76,7 @@
                     <h:outputText value="#{medicamento.idMedicamento}" />
                 </p:column>
 
-                <p:column headerText="Nome" filterBy="#{medicamento.nome}">
+                <p:column headerText="Nome" filterBy="#{medicamento.nome}" sortBy="#{medicamento.nome}">
                     <h:outputText value="#{medicamento.nome}" />
                 </p:column>
 

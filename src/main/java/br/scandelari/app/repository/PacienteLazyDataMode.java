@@ -50,8 +50,10 @@ public class PacienteLazyDataMode extends LazyDataModel<Paciente> {
                     predicates.add(cb.like(root.get(filterProperty), "%" + filterValue + "%"));
                 }
             }
+
             if (!predicates.isEmpty()) {
                 cq.where(predicates.toArray(new Predicate[predicates.size()]));
+
 //                CriteriaQuery<Long> countCriteria = cb.createQuery(Long.class);
 //                Root<?> entityRoot = countCriteria.from(Paciente.class);
 //
@@ -69,6 +71,17 @@ public class PacienteLazyDataMode extends LazyDataModel<Paciente> {
 //
 //                rowCount = count.intValue();
             }
+        }
+        if (sortBy != null) {
+            for (Map.Entry<String, SortMeta> entry : sortBy.entrySet()) {
+                String sortField = entry.getKey();
+                SortMeta sortMeta = entry.getValue();
+                if (sortMeta.getOrder() == SortOrder.ASCENDING)
+                    cq.orderBy(cb.asc(root.get(sortField)));
+                else if (sortMeta.getOrder() == SortOrder.DESCENDING)
+                    cq.orderBy(cb.desc(root.get(sortField)));
+            }
+
         }
 
         Query query = em.createQuery(cq);

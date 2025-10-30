@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortMeta;
+import org.primefaces.model.SortOrder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,12 @@ public class MedicamentoLazyDataMode extends LazyDataModel<Medicamento> {
         Root<Medicamento> root = cq.from(Medicamento.class);
         List<Predicate> predicates = new ArrayList<>();
 
+        if (notIn != null && !notIn.isEmpty()) {
+            Expression<String> nameExpression = root.get("idMedicamento");
+            Predicate inPredicate = nameExpression.in(notIn);
+            Predicate notInPredicate = cb.not(inPredicate);
+            predicates.add(notInPredicate);
+        }
         if (filterBy != null) {
             for (Map.Entry<String, FilterMeta> entry : filterBy.entrySet()) {
                 String filterProperty = entry.getKey();
@@ -54,15 +61,20 @@ public class MedicamentoLazyDataMode extends LazyDataModel<Medicamento> {
                     predicates.add(cb.like(root.get(filterProperty), "%" + filterValue + "%"));
                 }
             }
-            if (notIn != null && !notIn.isEmpty()) {
-                Expression<String> nameExpression = root.get("idMedicamento");
-                Predicate inPredicate = nameExpression.in(notIn);
-                Predicate notInPredicate = cb.not(inPredicate);
-                predicates.add(notInPredicate);
+        }
+        if (sortBy != null) {
+            for (Map.Entry<String, SortMeta> entry : sortBy.entrySet()) {
+                String sortField = entry.getKey();
+                SortMeta sortMeta = entry.getValue();
+                if (sortMeta.getOrder() == SortOrder.ASCENDING)
+                    cq.orderBy(cb.asc(root.get(sortField)));
+                else if (sortMeta.getOrder() == SortOrder.DESCENDING)
+                    cq.orderBy(cb.desc(root.get(sortField)));
             }
-            if (!predicates.isEmpty()) {
-                cq.where(predicates.toArray(new Predicate[predicates.size()]));
-            }
+
+        }
+        if (!predicates.isEmpty()) {
+            cq.where(predicates.toArray(new Predicate[predicates.size()]));
         }
 
         Query query = em.createQuery(cq);

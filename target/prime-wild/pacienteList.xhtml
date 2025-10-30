@@ -32,7 +32,7 @@
                     Pacientes
                 </f:facet>
 
-                <p:column headerText="Nome" filterBy="#{paciente.nome}">
+                <p:column headerText="Nome" filterBy="#{paciente.nome}" sortBy="#{paciente.nome}">
                     <p:cellEditor>
                         <f:facet name="output">
                             <p:outputLabel value="#{paciente.nome}" icon="pi pi-filter"/>

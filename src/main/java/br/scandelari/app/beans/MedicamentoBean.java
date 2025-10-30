@@ -39,6 +39,7 @@ public class MedicamentoBean {
     }
 
     public MedicamentoLazyDataMode getListaMedicamentosPaginado() {
+        listaMedicamentosPaginado.setNotIn(null);
         return listaMedicamentosPaginado;
     }
 
